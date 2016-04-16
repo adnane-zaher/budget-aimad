@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UserCreateDlg" widgetVar="UserCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUserTitle}">
+            <h:form id="UserCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{userController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUserLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{userController.selected.nom}" title="#{bundle.CreateUserTitle_nom}" />
+                        <p:outputLabel value="#{bundle.CreateUserLabel_prenom}" for="prenom" />
+                        <p:inputText id="prenom" value="#{userController.selected.prenom}" title="#{bundle.CreateUserTitle_prenom}" />
+                        <p:outputLabel value="#{bundle.CreateUserLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{userController.selected.adresse}" title="#{bundle.CreateUserTitle_adresse}" />
+                        <p:outputLabel value="#{bundle.CreateUserLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{userController.selected.tel}" title="#{bundle.CreateUserTitle_tel}" />
+                        <p:outputLabel value="#{bundle.CreateUserLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{userController.selected.email}" title="#{bundle.CreateUserTitle_email}" />
+                        <p:outputLabel value="#{bundle.CreateUserLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{userController.selected.type}" title="#{bundle.CreateUserTitle_type}" />
+                        <p:outputLabel value="#{bundle.CreateUserLabel_entiteAdministratif}" for="entiteAdministratif" />
+                        <p:selectOneMenu id="entiteAdministratif" value="#{userController.selected.entiteAdministratif}" >
+                            <f:selectItems value="#{entiteAdministratifController.itemsAvailableSelectOne}"
+                                           var="entiteAdministratifItem"
+                                           itemValue="#{entiteAdministratifItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUserLabel_faculte}" for="faculte" />
+                        <p:selectOneMenu id="faculte" value="#{userController.selected.faculte}" >
+                            <f:selectItems value="#{faculteController.itemsAvailableSelectOne}"
+                                           var="faculteItem"
+                                           itemValue="#{faculteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUserLabel_login}" for="login" />
+                        <p:inputText id="login" value="#{userController.selected.login}" title="#{bundle.CreateUserTitle_login}" />
+                        <p:outputLabel value="#{bundle.CreateUserLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{userController.selected.password}" title="#{bundle.CreateUserTitle_password}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{userController.create}" value="#{bundle.Save}" update="display,:UserListForm:datalist,:growl" oncomplete="handleSubmit(args,'UserCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UserCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

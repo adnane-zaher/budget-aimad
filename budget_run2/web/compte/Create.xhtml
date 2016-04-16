@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CompteCreateDlg" widgetVar="CompteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCompteTitle}">
+            <h:form id="CompteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{compteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{compteController.selected.id}" title="#{bundle.CreateCompteTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_designation}" for="designation" />
+                        <p:inputText id="designation" value="#{compteController.selected.designation}" title="#{bundle.CreateCompteTitle_designation}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_montantMax}" for="montantMax" />
+                        <p:inputText id="montantMax" value="#{compteController.selected.montantMax}" title="#{bundle.CreateCompteTitle_montantMax}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{compteController.create}" value="#{bundle.Save}" update="display,:CompteListForm:datalist,:growl" oncomplete="handleSubmit(args,'CompteCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CompteCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

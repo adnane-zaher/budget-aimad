@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="body">
+
+
+            <div class="ui-grid-col-12">
+                <h:form id="CompteItemListForm" >
+                    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+                    <table width="70%">
+                        <tbody>
+                            <tr>
+
+                                <td><p:outputLabel value="Annee" for="annee" /></td>
+                                <td><p:selectOneMenu id="annee" value="#{compteItemController.annee}" >
+                                        <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
+                                        <f:selectItems value="#{compteItemController.annees}"
+                                                       var="anneeItem"
+                                                       itemValue="#{anneeItem}"/>
+                                        <p:ajax  listener="#{compteItemController.findBudgetByAnneAndEntity()}"  update="budget" />
+                                    </p:selectOneMenu></td>
+                                <td><p:outputLabel value="Budget Total" for="budget" /></td>
+                                <td><p:inputText id="budget" disabled="true" value="#{compteItemController.budget}"/></td>
+                            </tr>
+
+                            <tr>
+                                <td><p:outputLabel value="Compte" for="compte" /></td>
+                                <td><p:selectOneMenu id="compte" value="#{compteItemController.selected.compte}" >
+                                        <f:selectItems value="#{compteController.items}"
+                                                       var="compteItem"
+                                                       itemValue="#{compteItem}"/>
+                                    </p:selectOneMenu></td>
+
+                            </tr>
+                            <tr>
+                                <td><p:outputLabel value="#{bundle.CreateCompteItemLabel_montantAffecte}" for="montantAffecte" /></td>
+                                <td><p:inputText id="montantAffecte" value="#{compteItemController.selected.montantAffecte}" /></td>
+
+
+                            </tr>
+                            <tr>
+                                <td><p:outputLabel value="#{bundle.CreateCompteItemLabel_montantEngage}" for="montantEngage" /></td>
+                                <td><p:inputText id="montantEngage" value="#{compteItemController.selected.montantEngage}"  /></td>
+
+                            </tr>
+                            <tr>
+                                <td><p:outputLabel value="#{bundle.CreateCompteItemLabel_montantPaye}" for="montantPaye" /></td>
+                                <td><p:inputText id="montantPaye" value="#{compteItemController.selected.montantPaye}"  /></td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td><p:outputLabel value="#{bundle.CreateCompteItemLabel_description}" for="description" /></td>
+                                <td><p:inputText id="description" value="#{compteItemController.selected.description}"  /></td>
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+                    <p:commandButton actionListener="#{compteItemController.addCompteItem()}" value="Ajouter" update="growl,:CompteItemListFormm:datalist,budget"  /><br/>
+                    <p:commandButton actionListener="#{compteItemController.createAllCompteItemsAndBudgetEntitysItems()}" value="Ajouter Tous"   /><br/>
+                </h:form>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <h:form id="CompteItemListFormm">
+                        <p:panel header="#{bundle.ListCompteItemTitle}">
+                            <p:dataTable id="datalist" value="#{compteItemController.compteItems}" var="item" editable="true">
+
+                                <p:ajax event="rowEditCancel" listener="#{compteItemController.deleteCompteItem()}" update="CompteItemListFormm,:CompteItemListForm" />
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListCompteItemTitle_montantAffecte}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.montantAffecte}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListCompteItemTitle_montantEngage}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.montantEngage}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListCompteItemTitle_montantPaye}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.montantPaye}"/>
+                                </p:column>
+
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListCompteItemTitle_compte}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.compte}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListCompteItemTitle_description}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.description}"/>
+                                </p:column>
+                                <p:column style="width:40px">
+                                    <p:rowEditor />
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                    
+                </div>
+            </div>
+        </ui:define>
+
+    </ui:composition>
+</html>
+

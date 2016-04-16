@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BudgetFaculteItemViewDlg" widgetVar="BudgetFaculteItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBudgetFaculteItemTitle}">
+            <h:form id="BudgetFaculteItemViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{budgetFaculteItemController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBudgetFaculteItemLabel_compteItem}"/>
+                        <h:outputText value="#{budgetFaculteItemController.selected.compteItem}" title="#{bundle.ViewBudgetFaculteItemTitle_compteItem}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteItemLabel_budgetFaculte}"/>
+                        <h:outputText value="#{budgetFaculteItemController.selected.budgetFaculte}" title="#{bundle.ViewBudgetFaculteItemTitle_budgetFaculte}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteItemLabel_id}"/>
+                        <h:outputText value="#{budgetFaculteItemController.selected.id}" title="#{bundle.ViewBudgetFaculteItemTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BudgetFaculteItemViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

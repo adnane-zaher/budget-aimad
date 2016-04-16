@@ -1,0 +1,152 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 7, 2016, 12:48:19 PM
+    Author     : Adnane
+*/
+
+
+
+.bodyLogin {
+    /*background: url(http://img0.mxstatic.com/wallpapers/98d66fa0a74316ff0da98b0ff5cf5db6_large.jpeg) no-repeat center center fixed;*/ 
+    background-color: white;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+/*    //-webkit-filter: blur(5px);*/
+}
+
+.container{
+    margin-left: 30%;
+    margin-top: 150px;
+}
+.img{
+    margin-left: 15%;
+}
+
+
+
+.login-card {
+    padding: 40px;
+    width: 274px;
+    background-color: #F7F7F7;
+    margin: 8px auto 10px;
+    border-radius: 2px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.login-card h1 {
+    font-weight: 100;
+    text-align: center;
+    font-size: 2.3em;
+}
+
+.login-card .login-submit {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+
+
+
+
+
+
+.login-submit {
+    /* border: 1px solid #3079ed; */
+    border: 0px;
+    color: #fff;
+    text-shadow: 0 1px rgba(0,0,0,0.1); 
+    background-color: #4d90fe;
+    /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+}
+
+.login-submit:hover {
+    /* border: 1px solid #2f5bb7; */
+    border: 0px;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: #357ae8;
+    /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+}
+
+.login-card a {
+    text-decoration: none;
+    color: #666;
+    font-weight: 400;
+    text-align: center;
+    display: inline-block;
+    opacity: 0.6;
+    transition: opacity ease 0.5s;
+}
+
+.login-card a:hover {
+    opacity: 1;
+}
+
+.login-help {
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}
+
+
+.menu-card {
+    margin-top: 20px;
+    padding: 30px;
+    height: 180px;
+    width: 250px;
+    
+    background-image: url("../../resources/img/url.png");
+
+    border-radius: 2px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    
+    background-repeat:no-repeat;
+    
+   
+}
+
+.menu-card:hover {
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: #e7e7e7;
+    
+    color:#666;
+    background-position:0 0, 0 0;
+    -webkit-transition-duration:0.5s;
+    -moz-transition-duration:0.5s;
+    transition-duration:0.5s;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.menu-card h1 {
+    font-weight: 100;
+    text-align: center;
+    font-size: 2.3em;
+}
+
+.menu-link {
+    text-decoration: none;
+    color: #333;
+}
+
+.iconMenu {
+    text-align: center;
+    font-size: 2.3em;
+}
+.container-fluid{
+    margin-left: 10%;
+    position: absolute;
+    top: 150px;
+}
