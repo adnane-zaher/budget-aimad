@@ -108,7 +108,7 @@ public class UserController implements Serializable {
     }
 
     public int getRole() {
-       // role = SessionUtil.getConnectedUser().getType();
+       //role = SessionUtil.getConnectedUser().getType();
         return role;
     }
 

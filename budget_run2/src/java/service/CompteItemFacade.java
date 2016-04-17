@@ -31,4 +31,14 @@ public class CompteItemFacade extends AbstractFacade<CompteItem> {
 //    public int affecterBudgetItem(CompteItem compteItem){
 //        
 //    }
+    
+    public Long generateId() {
+        Long maxId = (Long) em.createQuery("SELECT MAX(ci.id) FROM CompteItem ci").getSingleResult();
+        return (maxId == null ? 1l : maxId + 1);
+    }
+    
+    public void create(CompteItem compteItem){
+        
+        super.create(compteItem);
+    }
 }

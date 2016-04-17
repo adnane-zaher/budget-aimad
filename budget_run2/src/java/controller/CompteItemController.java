@@ -50,8 +50,9 @@ public class CompteItemController implements Serializable {
     private Double montantMax=0.0;
     private Message message;
     private List<CompteItem> compteItems;
-    private List<BudgetEntiteAdministratifItem> budgetEntiteAdministratifItems;
+    //private List<BudgetEntiteAdministratifItem> budgetEntiteAdministratifItems;
     private BudgetEntiteAdministratif budgetEntiteAdministratif;
+    //private long idMax;
 
     public CompteItemController() {
     }
@@ -66,6 +67,8 @@ public class CompteItemController implements Serializable {
         Compte compte = compteFacade.find(getSelected().getCompte().getId());
         montantMax = compte.getMontantMax();
     }
+    
+    
 
     private int validateViewCompteItem() {
 
@@ -93,52 +96,55 @@ public class CompteItemController implements Serializable {
        int res = validateViewCompteItem();
         if(res == 1){
             budget = budget - clone(selected).getMontantAffecte();
-            getCompteItems().add(clone(selected));
-            addBudgetEntityAdminItem();
+            compteItems.add(clone(selected));
+           // addBudgetEntityAdminItem();
         }
         
     }
     public void deleteCompteItem(){
         budget = budget + clone(selected).getMontantAffecte();
-        getCompteItems().remove(getSelected());
-        getBudgetEntiteAdministratifItems().remove(findByCompteItemInList(selected));
+        compteItems.remove(getSelected());
+       // budgetEntiteAdministratifItems.remove(findByCompteItemInList(clone(selected)));
     }
     
 
-    private BudgetEntiteAdministratifItem findByCompteItemInList(CompteItem compteItem){
-        for (BudgetEntiteAdministratifItem budgetEntiteAdministratifItem : getBudgetEntiteAdministratifItems()) {
-            if(budgetEntiteAdministratifItem.getCompteItem().getId()==compteItem.getId()){
-                return budgetEntiteAdministratifItem;
-            }
-        }
-        return null;
-    }
-    private void addBudgetEntityAdminItem() {
+//    private BudgetEntiteAdministratifItem findByCompteItemInList(CompteItem compteItem){
+//        for (BudgetEntiteAdministratifItem budgetEntiteAdministratifItem : getBudgetEntiteAdministratifItems()) {
+//            if(budgetEntiteAdministratifItem.getCompteItem().getId() == compteItem.getId()){
+//                return budgetEntiteAdministratifItem;
+//            }
+//        }
+//        return null;
+//    }
+    private BudgetEntiteAdministratifItem addBudgetEntityAdminItem(CompteItem compteItem) {
             BudgetEntiteAdministratifItem budgetEntiteAdministratifItem = new BudgetEntiteAdministratifItem();
-            budgetEntiteAdministratifItem.setCompteItem(selected);
+            budgetEntiteAdministratifItem.setCompteItem(compteItem);
             budgetEntiteAdministratifItem.setBudgetEntiteAdministratif(budgetEntiteAdministratif);
-            getBudgetEntiteAdministratifItems().add(budgetEntiteAdministratifItem);
+            //getBudgetEntiteAdministratifItems().add(budgetEntiteAdministratifItem);
+            return budgetEntiteAdministratifItem;
     }
 
     private void createCompteItems(){
         for (CompteItem compteItem : compteItems) {
             ejbFacade.create(compteItem);
+            budgetEntiteAdministratifItemFacade.create(addBudgetEntityAdminItem(compteItem));
+            
         }
     }
     
     
-    private void createBudgetEntityAdminItems(){
-        for (BudgetEntiteAdministratifItem budgetEntiteAdministratifItem : budgetEntiteAdministratifItems) {
-            budgetEntiteAdministratifItemFacade.create(budgetEntiteAdministratifItem);
-        }
-    }
+//    private void createBudgetEntityAdminItems(){
+//        for (BudgetEntiteAdministratifItem budgetEntiteAdministratifItem : budgetEntiteAdministratifItems) {
+//            budgetEntiteAdministratifItemFacade.create(budgetEntiteAdministratifItem);
+//        }
+//    }
     
     
     public void createAllCompteItemsAndBudgetEntitysItems(){
         createCompteItems();
-        createBudgetEntityAdminItems();
+        //createBudgetEntityAdminItems();
         compteItems.clear();
-        budgetEntiteAdministratifItems.clear();
+        //budgetEntiteAdministratifItems.clear();
     }
     public CompteItem getSelected() {
         if (selected == null) {
@@ -175,16 +181,7 @@ public class CompteItemController implements Serializable {
         this.compteItems = compteItems;
     }
 
-    public List<BudgetEntiteAdministratifItem> getBudgetEntiteAdministratifItems() {
-        if(budgetEntiteAdministratifItems == null){
-            budgetEntiteAdministratifItems = new ArrayList<>();
-        }
-        return budgetEntiteAdministratifItems;
-    }
-
-    public void setBudgetEntiteAdministratifItems(List<BudgetEntiteAdministratifItem> budgetEntiteAdministratifItems) {
-        this.budgetEntiteAdministratifItems = budgetEntiteAdministratifItems;
-    }
+    
     
     
 
