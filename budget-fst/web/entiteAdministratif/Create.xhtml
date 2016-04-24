@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EntiteAdministratifCreateDlg" widgetVar="EntiteAdministratifCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEntiteAdministratifTitle}">
+            <h:form id="EntiteAdministratifCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{entiteAdministratifController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateEntiteAdministratifLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{entiteAdministratifController.selected.id}" title="#{bundle.CreateEntiteAdministratifTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateEntiteAdministratifLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{entiteAdministratifController.selected.nom}" title="#{bundle.CreateEntiteAdministratifTitle_nom}" />
+                        <p:outputLabel value="#{bundle.CreateEntiteAdministratifLabel_logo}" for="logo" />
+                        <p:inputText id="logo" value="#{entiteAdministratifController.selected.logo}" title="#{bundle.CreateEntiteAdministratifTitle_logo}" />
+                        <p:outputLabel value="#{bundle.CreateEntiteAdministratifLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{entiteAdministratifController.selected.type}" title="#{bundle.CreateEntiteAdministratifTitle_type}" />
+                        <p:outputLabel value="#{bundle.CreateEntiteAdministratifLabel_sommeInterieur}" for="sommeInterieur" />
+                        <p:inputText id="sommeInterieur" value="#{entiteAdministratifController.selected.sommeInterieur}" title="#{bundle.CreateEntiteAdministratifTitle_sommeInterieur}" />
+                        <p:outputLabel value="#{bundle.CreateEntiteAdministratifLabel_faculte}" for="faculte" />
+                        <p:selectOneMenu id="faculte" value="#{entiteAdministratifController.selected.faculte}" >
+                            <f:selectItems value="#{faculteController.itemsAvailableSelectOne}"
+                                           var="faculteItem"
+                                           itemValue="#{faculteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEntiteAdministratifLabel_chef}" for="chef" />
+                        <p:selectOneMenu id="chef" value="#{entiteAdministratifController.selected.chef}" >
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="chefItem"
+                                           itemValue="#{chefItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEntiteAdministratifLabel_creditOuvert}" for="creditOuvert" />
+                        <p:inputText id="creditOuvert" value="#{entiteAdministratifController.selected.creditOuvert}" title="#{bundle.CreateEntiteAdministratifTitle_creditOuvert}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{entiteAdministratifController.create}" value="#{bundle.Save}" update="display,:EntiteAdministratifListForm:datalist,:growl" oncomplete="handleSubmit(args,'EntiteAdministratifCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EntiteAdministratifCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BudgetEntiteAdministratifViewDlg" widgetVar="BudgetEntiteAdministratifViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBudgetEntiteAdministratifTitle}">
+            <h:form id="BudgetEntiteAdministratifViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{budgetEntiteAdministratifController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_entiteAdministratif}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.entiteAdministratif}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_entiteAdministratif}"/>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_syntheseByEntiteAdministratif}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.syntheseByEntiteAdministratif}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_syntheseByEntiteAdministratif}"/>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_dateValidation}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.dateValidation}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_dateValidation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_dateSignature}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.dateSignature}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_dateSignature}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_responsableAffectation}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.responsableAffectation}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_responsableAffectation}"/>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_commentaire}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.commentaire}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_id}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.id}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_montantAffecte}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.montantAffecte}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_montantAffecte}"/>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_montantEngage}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.montantEngage}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_montantEngage}"/>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_montantPaye}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.montantPaye}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_montantPaye}"/>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_relicatEengage}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.relicatEengage}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_relicatEengage}"/>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_dateAffectation}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.dateAffectation}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_dateAffectation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_creditOuvert}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.creditOuvert}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_creditOuvert}"/>
+                        <h:outputText value="#{bundle.ViewBudgetEntiteAdministratifLabel_relicatPaye}"/>
+                        <h:outputText value="#{budgetEntiteAdministratifController.selected.relicatPaye}" title="#{bundle.ViewBudgetEntiteAdministratifTitle_relicatPaye}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BudgetEntiteAdministratifViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
