@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SyntheseByEntiteAdministratifItemEditDlg" widgetVar="SyntheseByEntiteAdministratifItemEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSyntheseByEntiteAdministratifItemTitle}">
+            <h:form id="SyntheseByEntiteAdministratifItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{syntheseByEntiteAdministratifItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSyntheseByEntiteAdministratifItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{syntheseByEntiteAdministratifItemController.selected.id}" title="#{bundle.EditSyntheseByEntiteAdministratifItemTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditSyntheseByEntiteAdministratifItemLabel_syntheseByEntiteAdministratif}" for="syntheseByEntiteAdministratif" />
+                        <p:selectOneMenu id="syntheseByEntiteAdministratif" value="#{syntheseByEntiteAdministratifItemController.selected.syntheseByEntiteAdministratif}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{syntheseByEntiteAdministratifController.itemsAvailableSelectOne}"
+                                           var="syntheseByEntiteAdministratifItem"
+                                           itemValue="#{syntheseByEntiteAdministratifItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSyntheseByEntiteAdministratifItemLabel_montantPaye}" for="montantPaye" />
+                        <p:inputText id="montantPaye" value="#{syntheseByEntiteAdministratifItemController.selected.montantPaye}" title="#{bundle.EditSyntheseByEntiteAdministratifItemTitle_montantPaye}" />
+                        <p:outputLabel value="#{bundle.EditSyntheseByEntiteAdministratifItemLabel_montantEngage}" for="montantEngage" />
+                        <p:inputText id="montantEngage" value="#{syntheseByEntiteAdministratifItemController.selected.montantEngage}" title="#{bundle.EditSyntheseByEntiteAdministratifItemTitle_montantEngage}" />
+                        <p:outputLabel value="#{bundle.EditSyntheseByEntiteAdministratifItemLabel_montantAffecte}" for="montantAffecte" />
+                        <p:inputText id="montantAffecte" value="#{syntheseByEntiteAdministratifItemController.selected.montantAffecte}" title="#{bundle.EditSyntheseByEntiteAdministratifItemTitle_montantAffecte}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{syntheseByEntiteAdministratifItemController.update}" value="#{bundle.Save}" update="display,:SyntheseByEntiteAdministratifItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SyntheseByEntiteAdministratifItemEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SyntheseByEntiteAdministratifItemEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

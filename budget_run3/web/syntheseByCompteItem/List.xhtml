@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSyntheseByCompteItemTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="SyntheseByCompteItemListForm">
+                <p:panel header="#{bundle.ListSyntheseByCompteItemTitle}">
+                    <p:dataTable id="datalist" value="#{syntheseByCompteItemController.items}" var="item"
+                                 selectionMode="single" selection="#{syntheseByCompteItemController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSyntheseByCompteItemTitle_syntheseByCompte}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.syntheseByCompte}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSyntheseByCompteItemTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSyntheseByCompteItemTitle_montantPaye}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.montantPaye}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSyntheseByCompteItemTitle_montantEngage}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.montantEngage}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSyntheseByCompteItemTitle_montantAffecte}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.montantAffecte}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSyntheseByCompteItemTitle_compte}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.compte}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSyntheseByCompteItemTitle_description}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{syntheseByCompteItemController.prepareCreate}" update=":SyntheseByCompteItemCreateForm" oncomplete="PF('SyntheseByCompteItemCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SyntheseByCompteItemViewForm" oncomplete="PF('SyntheseByCompteItemViewDialog').show()" disabled="#{empty syntheseByCompteItemController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SyntheseByCompteItemEditForm" oncomplete="PF('SyntheseByCompteItemEditDialog').show()" disabled="#{empty syntheseByCompteItemController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{syntheseByCompteItemController.destroy}" update=":growl,datalist" disabled="#{empty syntheseByCompteItemController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

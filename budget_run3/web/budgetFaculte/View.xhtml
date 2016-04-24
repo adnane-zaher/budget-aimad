@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BudgetFaculteViewDlg" widgetVar="BudgetFaculteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBudgetFaculteTitle}">
+            <h:form id="BudgetFaculteViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{budgetFaculteController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_syntheseByCompte}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.syntheseByCompte}" title="#{bundle.ViewBudgetFaculteTitle_syntheseByCompte}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_budgetFaculteItems}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.budgetFaculteItems}" title="#{bundle.ViewBudgetFaculteTitle_budgetFaculteItems}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_faculte}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.faculte}" title="#{bundle.ViewBudgetFaculteTitle_faculte}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_dateValidation}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.dateValidation}" title="#{bundle.ViewBudgetFaculteTitle_dateValidation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_dateSignature}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.dateSignature}" title="#{bundle.ViewBudgetFaculteTitle_dateSignature}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_responsableAffectation}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.responsableAffectation}" title="#{bundle.ViewBudgetFaculteTitle_responsableAffectation}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_commentaire}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.commentaire}" title="#{bundle.ViewBudgetFaculteTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_id}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.id}" title="#{bundle.ViewBudgetFaculteTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_montantAffecte}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.montantAffecte}" title="#{bundle.ViewBudgetFaculteTitle_montantAffecte}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_montantEngage}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.montantEngage}" title="#{bundle.ViewBudgetFaculteTitle_montantEngage}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_montantPaye}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.montantPaye}" title="#{bundle.ViewBudgetFaculteTitle_montantPaye}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_relicatEengage}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.relicatEengage}" title="#{bundle.ViewBudgetFaculteTitle_relicatEengage}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_dateAffectation}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.dateAffectation}" title="#{bundle.ViewBudgetFaculteTitle_dateAffectation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_creditOuvert}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.creditOuvert}" title="#{bundle.ViewBudgetFaculteTitle_creditOuvert}"/>
+                        <h:outputText value="#{bundle.ViewBudgetFaculteLabel_relicatPaye}"/>
+                        <h:outputText value="#{budgetFaculteController.selected.relicatPaye}" title="#{bundle.ViewBudgetFaculteTitle_relicatPaye}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BudgetFaculteViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
