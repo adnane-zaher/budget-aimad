@@ -9,25 +9,25 @@
 
 
         <ui:define name="body">
-
-
+            
             <div class="ui-grid-col-12">
-                <h:form id="CompteItemListForm" >
+            <div class="ui-grid-col-6">
+                <h:form id="CompteItemAdd" >
                     <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
                     <table width="70%">
                         <tbody>
                             <tr>
 
                                 <td><p:outputLabel value="Annee" for="annee" /></td>
-                                <td><p:selectOneMenu id="annee" value="#{compteItemController.annee}" >
+                                <td ><p:selectOneMenu id="annee" value="#{compteItemController.annee}" >
                                         <f:selectItem itemValue="#{null}" itemLabel="--Select--"/>
                                         <f:selectItems value="#{compteItemController.annees}"
                                                        var="anneeItem"
                                                        itemValue="#{anneeItem}"/>
-                                        <p:ajax  listener="#{compteItemController.findBudgetByAnneAndEntity()}"  update="budget" />
+                                        <p:ajax  listener="#{compteItemController.findBudgetByAnneAndEntity()}"  update="budget,budgetEngage,budgetPaye" />
                                     </p:selectOneMenu></td>
-                                <td><p:outputLabel value="Budget Total" for="budget" /></td>
-                                <td><p:inputText id="budget" disabled="true" value="#{compteItemController.budget}"/></td>
+                                <td style="padding-left:50px"><p:outputLabel value="BudgetTotal" for="budget" /></td>
+                                <td style="padding-left:70px"><p:inputText id="budget" disabled="true" value="#{compteItemController.budget}"/></td>
                             </tr>
 
                             <tr>
@@ -37,12 +37,14 @@
                                                        var="compteItem"
                                                        itemValue="#{compteItem}"/>
                                     </p:selectOneMenu></td>
-
+                                <td style="padding-left:50px"><p:outputLabel value="BudgetEngage" for="budgetEngage" /></td>
+                                <td style="padding-left:70px"><p:inputText id="budgetEngage" disabled="true" value="#{compteItemController.budgetEngage}"/></td>
                             </tr>
                             <tr>
                                 <td><p:outputLabel value="#{bundle.CreateCompteItemLabel_montantAffecte}" for="montantAffecte" /></td>
                                 <td><p:inputText id="montantAffecte" value="#{compteItemController.selected.montantAffecte}" /></td>
-
+                                <td style="padding-left:50px"><p:outputLabel value="BudgetPaye" for="budgetPaye" /></td>
+                                <td style="padding-left:70px"><p:inputText id="budgetPaye" disabled="true" value="#{compteItemController.budgetPaye}"/></td>
 
                             </tr>
                             <tr>
@@ -66,17 +68,17 @@
 
                         </tbody>
                     </table>
-                    <p:commandButton actionListener="#{compteItemController.addCompteItem()}" value="Ajouter" update="growl,:CompteItemListFormm:datalist,budget"  /><br/>
-                    <p:commandButton actionListener="#{compteItemController.createAllCompteItemsAndBudgetEntitysItems()}" value="Ajouter Tous"   /><br/>
+                    <p:commandButton actionListener="#{compteItemController.addCompteItem()}" value="Ajouter" update="growl,:CompteItemCurrents:datalist,budgetEngage,budgetPaye"  /><br/>
+                    <p:commandButton actionListener="#{compteItemController.createAllCompteItemsAndBudgetEntitysItems()}" value="Ajouter Tous"  update="growl,:CompteItemListForm:datalist" /><br/>
                 </h:form>
             </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-12">
-                    <h:form id="CompteItemListFormm">
+                
+                <div class="ui-grid-col-6">
+                    <h:form id="CompteItemCurrents">
                         <p:panel header="#{bundle.ListCompteItemTitle}">
-                            <p:dataTable id="datalist" value="#{compteItemController.compteItems}" var="item" editable="true">
-
-                                <p:ajax event="rowEditCancel" listener="#{compteItemController.deleteCompteItem()}" update="CompteItemListFormm,:CompteItemListForm" />
+                            <p:dataTable id="datalist" value="#{compteItemController.compteItems}" var="item" editable="true" >
+                               
+                                
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListCompteItemTitle_montantAffecte}"/>
@@ -111,13 +113,54 @@
                                     <h:outputText value="#{item.description}"/>
                                 </p:column>
                                 <p:column style="width:40px">
-                                    <p:rowEditor />
+                                    <f:facet name="header">
+                                        <h:outputText value="Actions"/>
+                                    </f:facet>
+                                    <p:commandButton actionListener="#{compteItemController.deleteCompteItem()}" value="Delete" update="CompteItemCurrents,:CompteItemAdd:budgetEngage,CompteItemAdd:budgetPaye"></p:commandButton>
+                                    
                                 </p:column>
                             </p:dataTable>
                         </p:panel>
                     </h:form>
-                    
-                </div>
+                    </div>
+        </div>
+            <div class="ui-grid-col-12">
+                <h:form id="CompteItemListForm">
+                        <p:panel header="List">
+                            <p:dataTable id="datalist" value="#{compteItemController.items}" var="item" editable="true">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Montant Affecte"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.montantAffecte}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Montant Engage"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.montantEngage}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Montant Paye"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.montantPaye}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Compte"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.compte.designation}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Description"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.description}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                </h:form>
             </div>
         </ui:define>
 

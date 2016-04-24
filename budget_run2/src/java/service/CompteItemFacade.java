@@ -5,7 +5,9 @@
  */
 package service;
 
+import bean.BudgetEntiteAdministratif;
 import bean.CompteItem;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,7 +40,21 @@ public class CompteItemFacade extends AbstractFacade<CompteItem> {
     }
     
     public void create(CompteItem compteItem){
-        
         super.create(compteItem);
     }
+    
+    public void remove(CompteItem compteItem){
+        super.remove(compteItem);
+    }
+    
+    public List<CompteItem> findAll(BudgetEntiteAdministratif budgetEntiteAdministratif){
+        
+        String requette = "SELECT ci FROM CompteItem ci,BudgetEntiteAdministratifItem beai WHERE ci.id = beai.compteItem.id AND beai.budgetEntiteAdministratif.id'"+budgetEntiteAdministratif.getId()+"'";
+        return em.createQuery(requette).getResultList();
+    }
+    
+    
+    
+    
+    
 }

@@ -48,6 +48,7 @@ public class UserController implements Serializable {
             role = selected.getType();
             System.out.println("o daba"+role);
             faculteFacade.initFaculteParams(selected.getFaculte());
+            System.out.println(SessionUtil.getCurrentFaculte());
             SessionUtil.attachUserToSession(selected);
             return "/menu/menu?faces-redirect=true";
         }

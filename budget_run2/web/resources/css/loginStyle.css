@@ -120,8 +120,8 @@ and open the template in the editor.
 .menu-card:hover {
     text-shadow: 0 1px rgba(0,0,0,0.3);
     background-color: #e0e0e0;
-    
-    color:#666;
+    text-decoration: none;
+    color:#8a6d3b;
     background-position:0 0, 0 0;
     -webkit-transition-duration:0.5s;
     -moz-transition-duration:0.5s;

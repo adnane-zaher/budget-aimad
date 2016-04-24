@@ -42,12 +42,14 @@ public class CompteItemController implements Serializable {
     @EJB
     private BudgetEntiteAdministratifItemFacade budgetEntiteAdministratifItemFacade;
 
-    private List<CompteItem> items = null;
+    private List<CompteItem> items;
     private CompteItem selected;
     private String annee;
     private Double budget;
+    private Double budgetEngage;
+    private Double budgetPaye;
     private List<String> annees = null;
-    private Double montantMax=0.0;
+    private Double montantMax = 0.0;
     private Message message;
     private List<CompteItem> compteItems;
     //private List<BudgetEntiteAdministratifItem> budgetEntiteAdministratifItems;
@@ -60,92 +62,113 @@ public class CompteItemController implements Serializable {
     public void findBudgetByAnneAndEntity() {
         budgetEntiteAdministratif = budgetEntiteAdministratifFacade.findByAnneAndEntity(annee, SessionUtil.getConnectedUser().getEntiteAdministratif());
         budget = budgetEntiteAdministratif.getMontantAffecte();
+        budgetEngage = budgetEntiteAdministratif.getMontantEngage();
+        budgetPaye = budgetEntiteAdministratif.getMontantPaye();
         System.out.println(budget);
     }
 
     public void findCompteMontantMax() {
-        Compte compte = compteFacade.find(getSelected().getCompte().getId());
+        Compte compte = compteFacade.find(selected.getCompte().getId());
         montantMax = compte.getMontantMax();
     }
-    
-    
 
     private int validateViewCompteItem() {
 
-        if (getSelected().getMontantAffecte() > budget) {
+        if (selected.getMontantAffecte() > budget) {
             message = MessageManager.createErrorMessage(-1, "Attention affecte>Budget Total");
-            MessageManager.showMessage(message);
+           
             return -1;
         }
 
-        if (getSelected().getMontantEngage() > getSelected().getMontantAffecte()) {
+        if (selected.getMontantEngage() > selected.getMontantAffecte()) {
             message = MessageManager.createErrorMessage(-2, "Attention engage>affecte ");
-            MessageManager.showMessage(message);
+            
             return -1;
         }
-        if (getSelected().getMontantEngage() < getSelected().getMontantPaye()) {
+        if (selected.getMontantEngage() < selected.getMontantPaye()) {
             message = MessageManager.createErrorMessage(-3, "Attention paye>engage ");
-            MessageManager.showMessage(message);
+            
             return -1;
         }
+        if (selected.getMontantAffecte() > montantMax) {
+            message = MessageManager.createErrorMessage(-4, "Attention Affecte>Montant Max du Compte ");
+            
+            return -1;
+        }
+        if (isCompteSelected(clone(selected).getCompte(), compteItems) == 1 || isCompteSelected(clone(selected).getCompte(), items) == 1) {
+            message = MessageManager.createErrorMessage(-5, "le Compte est deja selectionner ");
+            
+            return -1;
+        }
+        if (budgetEngage > budget ) {
+            message = MessageManager.createErrorMessage(-6, "Attetion le BudgetEntiteAdmin est dépassé");
+            
+            return -1;
+        }
+        MessageManager.showMessage(message);
         return 1;
     }
 
     public void addCompteItem() {
+        findCompteMontantMax();
         System.out.println(montantMax);
-       int res = validateViewCompteItem();
-        if(res == 1){
-            budget = budget - clone(selected).getMontantAffecte();
+        int res = validateViewCompteItem();
+        if (res == 1) {
+            //budget = budget - clone(selected).getMontantAffecte();
+            budgetEngage = budgetEngage + clone(selected).getMontantAffecte();
+            budgetPaye = budgetPaye + clone(selected).getMontantPaye();
             compteItems.add(clone(selected));
-           // addBudgetEntityAdminItem();
         }
-        
-    }
-    public void deleteCompteItem(){
-        budget = budget + clone(selected).getMontantAffecte();
-        compteItems.remove(getSelected());
-       // budgetEntiteAdministratifItems.remove(findByCompteItemInList(clone(selected)));
-    }
-    
 
-//    private BudgetEntiteAdministratifItem findByCompteItemInList(CompteItem compteItem){
-//        for (BudgetEntiteAdministratifItem budgetEntiteAdministratifItem : getBudgetEntiteAdministratifItems()) {
-//            if(budgetEntiteAdministratifItem.getCompteItem().getId() == compteItem.getId()){
-//                return budgetEntiteAdministratifItem;
-//            }
-//        }
-//        return null;
-//    }
+    }
+
+    public void deleteCompteItem() {
+        budgetEngage = budgetEngage - clone(selected).getMontantAffecte();
+        budgetPaye = budgetPaye - clone(selected).getMontantPaye();
+        compteItems.remove(selected);
+
+    }
+
     private BudgetEntiteAdministratifItem addBudgetEntityAdminItem(CompteItem compteItem) {
-            BudgetEntiteAdministratifItem budgetEntiteAdministratifItem = new BudgetEntiteAdministratifItem();
-            budgetEntiteAdministratifItem.setCompteItem(compteItem);
-            budgetEntiteAdministratifItem.setBudgetEntiteAdministratif(budgetEntiteAdministratif);
-            //getBudgetEntiteAdministratifItems().add(budgetEntiteAdministratifItem);
-            return budgetEntiteAdministratifItem;
+        BudgetEntiteAdministratifItem budgetEntiteAdministratifItem = new BudgetEntiteAdministratifItem();
+        budgetEntiteAdministratifItem.setCompteItem(compteItem);
+        budgetEntiteAdministratifItem.setBudgetEntiteAdministratif(budgetEntiteAdministratif);
+        return budgetEntiteAdministratifItem;
     }
 
-    private void createCompteItems(){
+    private void createCompteItems() {
         for (CompteItem compteItem : compteItems) {
             ejbFacade.create(compteItem);
             budgetEntiteAdministratifItemFacade.create(addBudgetEntityAdminItem(compteItem));
-            
+
         }
     }
-    
-    
+
 //    private void createBudgetEntityAdminItems(){
 //        for (BudgetEntiteAdministratifItem budgetEntiteAdministratifItem : budgetEntiteAdministratifItems) {
 //            budgetEntiteAdministratifItemFacade.create(budgetEntiteAdministratifItem);
 //        }
 //    }
-    
-    
-    public void createAllCompteItemsAndBudgetEntitysItems(){
+    private int isCompteSelected(Compte compte, List<CompteItem> compteItems) {
+        for (CompteItem compteItem : compteItems) {
+            if (compteItem.getCompte().getId() == compte.getId()) {
+                return 1;
+            }
+        }
+        return -1;
+    }
+
+    public void createAllCompteItemsAndBudgetEntitysItems() {
+        message = MessageManager.createInfoMessage(1, "Dakchi howa hadak");
+        MessageManager.showMessage(message);
         createCompteItems();
         //createBudgetEntityAdminItems();
+
         compteItems.clear();
+        items = ejbFacade.findAll();
         //budgetEntiteAdministratifItems.clear();
     }
+
     public CompteItem getSelected() {
         if (selected == null) {
             selected = new CompteItem();
@@ -158,7 +181,7 @@ public class CompteItemController implements Serializable {
     }
 
     public BudgetEntiteAdministratif getBudgetEntiteAdministratif() {
-        if(budgetEntiteAdministratif == null){
+        if (budgetEntiteAdministratif == null) {
             budgetEntiteAdministratif = new BudgetEntiteAdministratif();
         }
         return budgetEntiteAdministratif;
@@ -168,10 +191,8 @@ public class CompteItemController implements Serializable {
         this.budgetEntiteAdministratif = budgetEntiteAdministratif;
     }
 
-    
-
     public List<CompteItem> getCompteItems() {
-        if(compteItems == null){
+        if (compteItems == null) {
             compteItems = new ArrayList<>();
         }
         return compteItems;
@@ -180,10 +201,6 @@ public class CompteItemController implements Serializable {
     public void setCompteItems(List<CompteItem> compteItems) {
         this.compteItems = compteItems;
     }
-
-    
-    
-    
 
     protected void setEmbeddableKeys() {
     }
@@ -258,6 +275,28 @@ public class CompteItemController implements Serializable {
         return budget;
     }
 
+    public Double getBudgetEngage() {
+        if (budgetEngage == null) {
+            budgetEngage = new Double(0);
+        }
+        return budgetEngage;
+    }
+
+    public void setBudgetEngage(Double budgetEngage) {
+        this.budgetEngage = budgetEngage;
+    }
+
+    public Double getBudgetPaye() {
+        if (budgetPaye == null) {
+            budgetPaye = new Double(0);
+        }
+        return budgetPaye;
+    }
+
+    public void setBudgetPaye(Double budgetPaye) {
+        this.budgetPaye = budgetPaye;
+    }
+
     public List<String> getAnnees() {
         if (annees == null) {
             annees = new ArrayList<>();
@@ -270,8 +309,8 @@ public class CompteItemController implements Serializable {
         System.out.println("ha les annees " + annees);
         return annees;
     }
-    
-    public CompteItem clone(CompteItem compteItem){
+
+    public CompteItem clone(CompteItem compteItem) {
         CompteItem clone = new CompteItem();
         clone.setId(compteItem.getId());
         clone.setDescription(compteItem.getDescription());

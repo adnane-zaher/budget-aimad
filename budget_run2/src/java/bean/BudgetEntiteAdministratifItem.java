@@ -27,6 +27,7 @@ public class BudgetEntiteAdministratifItem implements Serializable {
     private CompteItem compteItem;
     @ManyToOne
     private BudgetEntiteAdministratif budgetEntiteAdministratif;
+    
 //****************************************************************************
     public CompteItem getCompteItem() {
         return compteItem;

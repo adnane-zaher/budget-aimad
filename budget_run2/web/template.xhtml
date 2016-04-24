@@ -40,9 +40,17 @@
                             <p:menuitem value="SyntheseByEntiteAdministratifItem" outcome="/syntheseByEntiteAdministratifItem/List.xhtml" />
                             <p:menuitem value="User" outcome="/user/List.xhtml" />
                         </p:submenu>
-                        <p:submenu label="Affectation Budget">
-                            <p:menuitem value="Par Compte" outcome="/compteItem/addCompteItem.xhtml" rendered="#{userController.role == 1}" />
-                            <p:menuitem value="Par Departement" outcome="/budgetFaculte/List.xhtml" rendered="#{userController.role == 2}" />
+                        <p:submenu label="Affectation Budget Par Compte" rendered="#{userController.role >= 1}">
+                            <p:menuitem value="Par Compte" outcome="/compteItem/addCompteItem.xhtml"  />
+                            <p:menuitem value="List" outcome="/compteItem/List.xhtml"  />
+                        </p:submenu>
+                        <p:submenu label="Affectation Budget Par Departement" rendered="#{userController.role > 2}">
+                            <p:menuitem value="Par Compte" outcome="/budgetEntiteAdministratif/Create.xhtml"  />
+                            <p:menuitem value="List" outcome="/budgetEntiteAdministratif/List.xhtml"  />
+                        </p:submenu>
+                        <p:submenu label="Affectation Budget Par Departement" rendered="#{userController.role >= 2}">
+                            <p:menuitem value="Validation" outcome="/compteItem/Create.xhtml"  />
+                            <p:menuitem value="Validation" outcome="/compteItem/List.xhtml"  />
                         </p:submenu>
                     </p:menubar>
                 </h:form>
