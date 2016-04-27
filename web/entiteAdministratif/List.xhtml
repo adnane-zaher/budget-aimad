@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEntiteAdministratifTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+                <h:form id="EntiteAdministratifListForm">
+                    <p:panel header="#{bundle.ListEntiteAdministratifTitle}">
+                        <p:dataTable id="datalist" value="#{entiteAdministratifController.items}" var="item"
+                            selectionMode="single" selection="#{entiteAdministratifController.selected}"
+                            paginator="true"
+                            rowKey="#{item.id}"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEntiteAdministratifTitle_id}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEntiteAdministratifTitle_nom}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nom}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEntiteAdministratifTitle_logo}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.logo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEntiteAdministratifTitle_type}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.type}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEntiteAdministratifTitle_sommeInterieur}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sommeInterieur}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEntiteAdministratifTitle_faculte}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.faculte}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEntiteAdministratifTitle_chef}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.chef}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListEntiteAdministratifTitle_creditOuvert}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.creditOuvert}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{entiteAdministratifController.prepareCreate}" update=":EntiteAdministratifCreateForm" oncomplete="PF('EntiteAdministratifCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EntiteAdministratifViewForm" oncomplete="PF('EntiteAdministratifViewDialog').show()" disabled="#{empty entiteAdministratifController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EntiteAdministratifEditForm" oncomplete="PF('EntiteAdministratifEditDialog').show()" disabled="#{empty entiteAdministratifController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{entiteAdministratifController.destroy}" update=":growl,datalist" disabled="#{empty entiteAdministratifController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

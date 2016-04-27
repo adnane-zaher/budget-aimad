@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListBudgetFaculteTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+                <h:form id="BudgetFaculteListForm">
+                    <p:panel header="#{bundle.ListBudgetFaculteTitle}">
+                        <p:dataTable id="datalist" value="#{budgetFaculteController.items}" var="item"
+                            selectionMode="single" selection="#{budgetFaculteController.selected}"
+                            paginator="true"
+                            rowKey="#{item.id}"
+                            rows="10"
+                            rowsPerPageTemplate="10,20,30,40,50"
+                            >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_syntheseByCompte}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.syntheseByCompte}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_budgetFaculteItems}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.budgetFaculteItems}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_faculte}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.faculte}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_dateValidation}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dateValidation}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_dateSignature}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dateSignature}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_responsableAffectation}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.responsableAffectation}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_annee}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.annee}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_commentaire}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.commentaire}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_id}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_montantAffecte}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.montantAffecte}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_montantEngage}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.montantEngage}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_montantPaye}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.montantPaye}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_relicatEengage}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.relicatEengage}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_dateAffectation}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dateAffectation}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_creditOuvert}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.creditOuvert}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListBudgetFaculteTitle_relicatPaye}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.relicatPaye}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{budgetFaculteController.prepareCreate}" update=":BudgetFaculteCreateForm" oncomplete="PF('BudgetFaculteCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":BudgetFaculteViewForm" oncomplete="PF('BudgetFaculteViewDialog').show()" disabled="#{empty budgetFaculteController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":BudgetFaculteEditForm" oncomplete="PF('BudgetFaculteEditDialog').show()" disabled="#{empty budgetFaculteController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{budgetFaculteController.destroy}" update=":growl,datalist" disabled="#{empty budgetFaculteController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

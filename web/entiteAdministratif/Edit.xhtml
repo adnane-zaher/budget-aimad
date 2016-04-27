@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EntiteAdministratifEditDlg" widgetVar="EntiteAdministratifEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEntiteAdministratifTitle}">
+            <h:form id="EntiteAdministratifEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{entiteAdministratifController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEntiteAdministratifLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{entiteAdministratifController.selected.id}" title="#{bundle.EditEntiteAdministratifTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditEntiteAdministratifLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{entiteAdministratifController.selected.nom}" title="#{bundle.EditEntiteAdministratifTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditEntiteAdministratifLabel_logo}" for="logo" />
+                        <p:inputText id="logo" value="#{entiteAdministratifController.selected.logo}" title="#{bundle.EditEntiteAdministratifTitle_logo}" />
+                        <p:outputLabel value="#{bundle.EditEntiteAdministratifLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{entiteAdministratifController.selected.type}" title="#{bundle.EditEntiteAdministratifTitle_type}" />
+                        <p:outputLabel value="#{bundle.EditEntiteAdministratifLabel_sommeInterieur}" for="sommeInterieur" />
+                        <p:inputText id="sommeInterieur" value="#{entiteAdministratifController.selected.sommeInterieur}" title="#{bundle.EditEntiteAdministratifTitle_sommeInterieur}" />
+                        <p:outputLabel value="#{bundle.EditEntiteAdministratifLabel_faculte}" for="faculte" />
+                        <p:selectOneMenu id="faculte" value="#{entiteAdministratifController.selected.faculte}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{faculteController.itemsAvailableSelectOne}"
+                                           var="faculteItem"
+                                           itemValue="#{faculteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEntiteAdministratifLabel_chef}" for="chef" />
+                        <p:selectOneMenu id="chef" value="#{entiteAdministratifController.selected.chef}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="chefItem"
+                                           itemValue="#{chefItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEntiteAdministratifLabel_creditOuvert}" for="creditOuvert" />
+                        <p:inputText id="creditOuvert" value="#{entiteAdministratifController.selected.creditOuvert}" title="#{bundle.EditEntiteAdministratifTitle_creditOuvert}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{entiteAdministratifController.update}" value="#{bundle.Save}" update="display,:EntiteAdministratifListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EntiteAdministratifEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EntiteAdministratifEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

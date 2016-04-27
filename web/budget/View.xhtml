@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BudgetViewDlg" widgetVar="BudgetViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBudgetTitle}">
+            <h:form id="BudgetViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{budgetController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBudgetLabel_dateValidation}"/>
+                        <h:outputText value="#{budgetController.selected.dateValidation}" title="#{bundle.ViewBudgetTitle_dateValidation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_dateSignature}"/>
+                        <h:outputText value="#{budgetController.selected.dateSignature}" title="#{bundle.ViewBudgetTitle_dateSignature}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_responsableAffectation}"/>
+                        <h:outputText value="#{budgetController.selected.responsableAffectation}" title="#{bundle.ViewBudgetTitle_responsableAffectation}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_annee}"/>
+                        <h:outputText value="#{budgetController.selected.annee}" title="#{bundle.ViewBudgetTitle_annee}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_commentaire}"/>
+                        <h:outputText value="#{budgetController.selected.commentaire}" title="#{bundle.ViewBudgetTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_id}"/>
+                        <h:outputText value="#{budgetController.selected.id}" title="#{bundle.ViewBudgetTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_montantAffecte}"/>
+                        <h:outputText value="#{budgetController.selected.montantAffecte}" title="#{bundle.ViewBudgetTitle_montantAffecte}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_montantEngage}"/>
+                        <h:outputText value="#{budgetController.selected.montantEngage}" title="#{bundle.ViewBudgetTitle_montantEngage}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_montantPaye}"/>
+                        <h:outputText value="#{budgetController.selected.montantPaye}" title="#{bundle.ViewBudgetTitle_montantPaye}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_relicatEengage}"/>
+                        <h:outputText value="#{budgetController.selected.relicatEengage}" title="#{bundle.ViewBudgetTitle_relicatEengage}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_dateAffectation}"/>
+                        <h:outputText value="#{budgetController.selected.dateAffectation}" title="#{bundle.ViewBudgetTitle_dateAffectation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_creditOuvert}"/>
+                        <h:outputText value="#{budgetController.selected.creditOuvert}" title="#{bundle.ViewBudgetTitle_creditOuvert}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_relicatPaye}"/>
+                        <h:outputText value="#{budgetController.selected.relicatPaye}" title="#{bundle.ViewBudgetTitle_relicatPaye}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BudgetViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CompteItemEditDlg" widgetVar="CompteItemEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCompteItemTitle}">
+            <h:form id="CompteItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{compteItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCompteItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{compteItemController.selected.id}" title="#{bundle.EditCompteItemTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditCompteItemLabel_montantPaye}" for="montantPaye" />
+                        <p:inputText id="montantPaye" value="#{compteItemController.selected.montantPaye}" title="#{bundle.EditCompteItemTitle_montantPaye}" />
+                        <p:outputLabel value="#{bundle.EditCompteItemLabel_montantEngage}" for="montantEngage" />
+                        <p:inputText id="montantEngage" value="#{compteItemController.selected.montantEngage}" title="#{bundle.EditCompteItemTitle_montantEngage}" />
+                        <p:outputLabel value="#{bundle.EditCompteItemLabel_montantAffecte}" for="montantAffecte" />
+                        <p:inputText id="montantAffecte" value="#{compteItemController.selected.montantAffecte}" title="#{bundle.EditCompteItemTitle_montantAffecte}" />
+                        <p:outputLabel value="#{bundle.EditCompteItemLabel_compte}" for="compte" />
+                        <p:selectOneMenu id="compte" value="#{compteItemController.selected.compte}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{compteController.itemsAvailableSelectOne}"
+                                           var="compteItem"
+                                           itemValue="#{compteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCompteItemLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{compteItemController.selected.description}" title="#{bundle.EditCompteItemTitle_description}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{compteItemController.update}" value="#{bundle.Save}" update="display,:CompteItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CompteItemEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CompteItemEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
