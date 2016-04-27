@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BudgetEditDlg" widgetVar="BudgetEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBudgetTitle}">
+            <h:form id="BudgetEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{budgetController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_dateValidation}" for="dateValidation" />
+                        <p:calendar id="dateValidation" pattern="MM/dd/yyyy" value="#{budgetController.selected.dateValidation}" title="#{bundle.EditBudgetTitle_dateValidation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_dateSignature}" for="dateSignature" />
+                        <p:calendar id="dateSignature" pattern="MM/dd/yyyy" value="#{budgetController.selected.dateSignature}" title="#{bundle.EditBudgetTitle_dateSignature}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_responsableAffectation}" for="responsableAffectation" />
+                        <p:selectOneMenu id="responsableAffectation" value="#{budgetController.selected.responsableAffectation}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="responsableAffectationItem"
+                                           itemValue="#{responsableAffectationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_annee}" for="annee" />
+                        <p:inputText id="annee" value="#{budgetController.selected.annee}" title="#{bundle.EditBudgetTitle_annee}" />
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_commentaire}" for="commentaire" />
+                        <p:inputText id="commentaire" value="#{budgetController.selected.commentaire}" title="#{bundle.EditBudgetTitle_commentaire}" />
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{budgetController.selected.id}" title="#{bundle.EditBudgetTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_montantAffecte}" for="montantAffecte" />
+                        <p:inputText id="montantAffecte" value="#{budgetController.selected.montantAffecte}" title="#{bundle.EditBudgetTitle_montantAffecte}" />
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_montantEngage}" for="montantEngage" />
+                        <p:inputText id="montantEngage" value="#{budgetController.selected.montantEngage}" title="#{bundle.EditBudgetTitle_montantEngage}" />
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_montantPaye}" for="montantPaye" />
+                        <p:inputText id="montantPaye" value="#{budgetController.selected.montantPaye}" title="#{bundle.EditBudgetTitle_montantPaye}" />
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_relicatEengage}" for="relicatEengage" />
+                        <p:inputText id="relicatEengage" value="#{budgetController.selected.relicatEengage}" title="#{bundle.EditBudgetTitle_relicatEengage}" />
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_dateAffectation}" for="dateAffectation" />
+                        <p:calendar id="dateAffectation" pattern="MM/dd/yyyy" value="#{budgetController.selected.dateAffectation}" title="#{bundle.EditBudgetTitle_dateAffectation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_creditOuvert}" for="creditOuvert" />
+                        <p:inputText id="creditOuvert" value="#{budgetController.selected.creditOuvert}" title="#{bundle.EditBudgetTitle_creditOuvert}" />
+                        <p:outputLabel value="#{bundle.EditBudgetLabel_relicatPaye}" for="relicatPaye" />
+                        <p:inputText id="relicatPaye" value="#{budgetController.selected.relicatPaye}" title="#{bundle.EditBudgetTitle_relicatPaye}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{budgetController.update}" value="#{bundle.Save}" update="display,:BudgetListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BudgetEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BudgetEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

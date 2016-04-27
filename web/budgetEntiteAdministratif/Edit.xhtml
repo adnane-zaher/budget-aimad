@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BudgetEntiteAdministratifEditDlg" widgetVar="BudgetEntiteAdministratifEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBudgetEntiteAdministratifTitle}">
+            <h:form id="BudgetEntiteAdministratifEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{budgetEntiteAdministratifController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_entiteAdministratif}" for="entiteAdministratif" />
+                        <p:selectOneMenu id="entiteAdministratif" value="#{budgetEntiteAdministratifController.selected.entiteAdministratif}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{entiteAdministratifController.itemsAvailableSelectOne}"
+                                           var="entiteAdministratifItem"
+                                           itemValue="#{entiteAdministratifItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_syntheseByEntiteAdministratif}" for="syntheseByEntiteAdministratif" />
+                        <p:selectOneMenu id="syntheseByEntiteAdministratif" value="#{budgetEntiteAdministratifController.selected.syntheseByEntiteAdministratif}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{syntheseByEntiteAdministratifController.itemsAvailableSelectOne}"
+                                           var="syntheseByEntiteAdministratifItem"
+                                           itemValue="#{syntheseByEntiteAdministratifItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_dateValidation}" for="dateValidation" />
+                        <p:calendar id="dateValidation" pattern="MM/dd/yyyy" value="#{budgetEntiteAdministratifController.selected.dateValidation}" title="#{bundle.EditBudgetEntiteAdministratifTitle_dateValidation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_dateSignature}" for="dateSignature" />
+                        <p:calendar id="dateSignature" pattern="MM/dd/yyyy" value="#{budgetEntiteAdministratifController.selected.dateSignature}" title="#{bundle.EditBudgetEntiteAdministratifTitle_dateSignature}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_responsableAffectation}" for="responsableAffectation" />
+                        <p:selectOneMenu id="responsableAffectation" value="#{budgetEntiteAdministratifController.selected.responsableAffectation}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="responsableAffectationItem"
+                                           itemValue="#{responsableAffectationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_annee}" for="annee" />
+                        <p:inputText id="annee" value="#{budgetEntiteAdministratifController.selected.annee}" title="#{bundle.EditBudgetEntiteAdministratifTitle_annee}" />
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_commentaire}" for="commentaire" />
+                        <p:inputText id="commentaire" value="#{budgetEntiteAdministratifController.selected.commentaire}" title="#{bundle.EditBudgetEntiteAdministratifTitle_commentaire}" />
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{budgetEntiteAdministratifController.selected.id}" title="#{bundle.EditBudgetEntiteAdministratifTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_montantAffecte}" for="montantAffecte" />
+                        <p:inputText id="montantAffecte" value="#{budgetEntiteAdministratifController.selected.montantAffecte}" title="#{bundle.EditBudgetEntiteAdministratifTitle_montantAffecte}" />
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_montantEngage}" for="montantEngage" />
+                        <p:inputText id="montantEngage" value="#{budgetEntiteAdministratifController.selected.montantEngage}" title="#{bundle.EditBudgetEntiteAdministratifTitle_montantEngage}" />
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_montantPaye}" for="montantPaye" />
+                        <p:inputText id="montantPaye" value="#{budgetEntiteAdministratifController.selected.montantPaye}" title="#{bundle.EditBudgetEntiteAdministratifTitle_montantPaye}" />
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_relicatEengage}" for="relicatEengage" />
+                        <p:inputText id="relicatEengage" value="#{budgetEntiteAdministratifController.selected.relicatEengage}" title="#{bundle.EditBudgetEntiteAdministratifTitle_relicatEengage}" />
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_dateAffectation}" for="dateAffectation" />
+                        <p:calendar id="dateAffectation" pattern="MM/dd/yyyy" value="#{budgetEntiteAdministratifController.selected.dateAffectation}" title="#{bundle.EditBudgetEntiteAdministratifTitle_dateAffectation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_creditOuvert}" for="creditOuvert" />
+                        <p:inputText id="creditOuvert" value="#{budgetEntiteAdministratifController.selected.creditOuvert}" title="#{bundle.EditBudgetEntiteAdministratifTitle_creditOuvert}" />
+                        <p:outputLabel value="#{bundle.EditBudgetEntiteAdministratifLabel_relicatPaye}" for="relicatPaye" />
+                        <p:inputText id="relicatPaye" value="#{budgetEntiteAdministratifController.selected.relicatPaye}" title="#{bundle.EditBudgetEntiteAdministratifTitle_relicatPaye}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{budgetEntiteAdministratifController.update}" value="#{bundle.Save}" update="display,:BudgetEntiteAdministratifListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BudgetEntiteAdministratifEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BudgetEntiteAdministratifEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
